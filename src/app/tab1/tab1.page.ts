@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AutoUpdateService } from '../services/auto-update.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,23 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  updating: boolean;
+  versionInfo;
+
+  constructor(
+    private autoUpdateService: AutoUpdateService
+  ) {}
+
+  update() {
+    if (!this.updating) {
+      this.updating = true;
+
+      this.autoUpdateService.update$(true).subscribe((res) => {
+        setTimeout(() => {
+          this.updating = false;
+        }, 1000);
+      });
+    }
+  }
 
 }
