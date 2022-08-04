@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Deploy } from 'cordova-plugin-ionic/dist/ngx';
-import { ISnapshotInfo } from 'cordova-plugin-ionic/dist/ngx/IonicCordova';
-import { EMPTY, forkJoin, from, Observable } from 'rxjs';
-import { catchError, delay, finalize, switchMap } from 'rxjs/operators';
+import { EMPTY, from, Observable } from 'rxjs';
+import { catchError, delay, switchMap } from 'rxjs/operators';
 import { UtilsService } from './utils.service';
 
 @Injectable({
@@ -40,7 +39,7 @@ export class AutoUpdateService {
               loadingElement.message = `Your app has been updated.`;
               this.updating = false;
               
-              // Reload the app, so there's no need to restart, this will also dismiss the loading
+              // Reload the app, so there's no need to 'restart', this will also dismiss the loading
               return from(this.deploy.reloadApp()).pipe(delay(1000)); 
             }),
             catchError(() => {
